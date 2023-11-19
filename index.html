@@ -12,10 +12,11 @@
             margin: 0;
             padding: 0;
         }
-        
+
         #card {
-            width: 1200px;
-            height: 1450px;
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
             margin: 50px auto;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,26 +24,11 @@
             position: relative;
         }
 
-        #front-page, #back-page {
+        #card img {
             width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        #front-page img, #back-page img {
-            width: 100%;
-            height: 100%;
-        }
-
-        #front-page {
-            transform: rotateY(0deg);
-        }
-
-        #back-page {
-            transform: rotateY(180deg);
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         button {
@@ -55,32 +41,29 @@
             border: none;
             border-radius: 5px;
         }
+
+        @media (max-width: 767px) {
+            #card {
+                margin: 20px auto;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="card">
-    <div id="front-page">
-        <img src="1.png" alt="Изображение открытки" />
-    </div>
-    <div id="back-page">
-        <img src="2.png" alt="Фотография человека" />
-        
-    </div>
+    <img id="cardImage" src="1.png" alt="Изображение открытки" />
 </div>
 
-<button onclick="flipCard()">Нажми меня</button>
+<button onclick="changeImage()">Нажми меня</button>
 
 <script>
-    function flipCard() {
-        var card = document.getElementById('card');
-        var backPage = document.getElementById('back-page');
-        var initialImage = document.querySelector('#back-page img:not([style="display: none;"])');
-        
-        backPage.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
-        
-        // Toggle display of images on the back page
-        initialImage.style.display = initialImage.style.display === 'none' ? 'block' : 'none';
+    var currentImage = 1;
+
+    function changeImage() {
+        var cardImage = document.getElementById('cardImage');
+        currentImage = (currentImage === 1) ? 2 : 1;
+        cardImage.src = (currentImage === 1) ? '1.png' : '2.png';
     }
 </script>
 
